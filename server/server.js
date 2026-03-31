@@ -77,6 +77,11 @@ mongoose.connection.on('disconnected', () => {
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/transactions', require('./routes/transactionRoutes'));
 
+// Health Check Route
+app.get('/', (req, res) => {
+    res.json({ message: 'Expense Tracker API is healthy and running' });
+});
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
