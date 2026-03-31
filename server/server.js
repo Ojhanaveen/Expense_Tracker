@@ -20,10 +20,13 @@ app.use(cookieParser()); // Cookie handling
 app.use(express.json());
 
 // CORS Configuration
-const allowedOrigins = [
-    'http://localhost:5173',
-    'http://localhost:3000',
-];
+const allowedOrigins = [];
+
+// Only allow localhost in development
+if (process.env.NODE_ENV !== 'production') {
+    allowedOrigins.push('http://localhost:5173');
+    allowedOrigins.push('http://localhost:3000');
+}
 
 // Add the production frontend URL if it exists
 if (process.env.FRONTEND_URL) {
