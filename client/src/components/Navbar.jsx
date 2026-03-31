@@ -9,6 +9,7 @@ import {
   PieChart, 
   Wallet, 
   X,
+  Menu,
   PlusCircle,
   History
 } from 'lucide-react';
