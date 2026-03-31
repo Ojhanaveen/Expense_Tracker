@@ -87,8 +87,8 @@ const Navbar = () => {
                 </div>
 
                 {/* Mobile Toggle */}
-                <button className="md:hidden text-white" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                    {isMenuOpen ? <X /> : <Menu />}
+                <button className="md:hidden text-white pointer-events-auto" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                    {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
             </div>
 
