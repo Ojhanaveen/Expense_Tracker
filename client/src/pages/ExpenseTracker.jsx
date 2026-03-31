@@ -34,9 +34,7 @@ const ExpenseTracker = () => {
         setLoading(true);
         try {
             const config = {
-                headers: {
-                    Authorization: `Bearer ${user.token}`,
-                },
+                withCredentials: true,
                 params: {
                     page,
                     limit: 10,
@@ -64,9 +62,7 @@ const ExpenseTracker = () => {
         if (window.confirm('Are you sure you want to delete this transaction?')) {
             try {
                 const config = {
-                    headers: {
-                        Authorization: `Bearer ${user.token}`,
-                    },
+                    withCredentials: true
                 };
                 await axios.delete(`${import.meta.env.VITE_API_URL}/transactions/${id}`, config);
                 fetchTransactions();

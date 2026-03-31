@@ -21,9 +21,7 @@ const Dashboard = () => {
         const fetchSummary = async () => {
             try {
                 const config = {
-                    headers: {
-                        Authorization: `Bearer ${user.token}`,
-                    },
+                    withCredentials: true
                 };
                 const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/transactions/summary`, config);
                 setSummary(data);

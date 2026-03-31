@@ -39,9 +39,7 @@ const TransactionForm = ({ transaction, onClose, onSave }) => {
         
         try {
             const config = {
-                headers: {
-                    Authorization: `Bearer ${user.token}`,
-                },
+                withCredentials: true
             };
 
             if (transaction) {
