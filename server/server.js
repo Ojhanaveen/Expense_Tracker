@@ -40,10 +40,13 @@ app.use(cors({
         // Allow requests with no origin (like mobile apps, curl, or server-to-server)
         if (!origin) return callback(null, true);
         
-        if (allowedOrigins.indexOf(origin) !== -1) {
+        // Check if origin is in the explicitly allowed list or is a Vercel preview/production URL
+        const isAllowedOrigin = allowedOrigins.includes(origin) || origin.endsWith('.vercel.app');
+        
+        if (isAllowedOrigin) {
             return callback(null, true);
         } else {
-            console.error(`CORS Error: Origin ${origin} not allowed. Allowed:`, allowedOrigins);
+            console.error(`CORS Error: Origin ${origin} not allowed. Allowed explicitly:`, allowedOrigins);
             // Return null for error, but false for success to deny without a 500 crash
             return callback(null, false);
         }
