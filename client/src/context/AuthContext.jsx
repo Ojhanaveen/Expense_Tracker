@@ -12,15 +12,20 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const checkLoggedIn = async () => {
+            console.log("AuthProvider: Checking login status at:", import.meta.env.VITE_API_URL);
             try {
-                // The browser automatically sends the HttpOnly cookie
+                if (!import.meta.env.VITE_API_URL) {
+                    throw new Error("VITE_API_URL is not defined! Check your Vercel/Local env settings.");
+                }
                 const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/auth/me`);
+                console.log("AuthProvider: Success, user found.");
                 setUser(data);
             } catch (error) {
-                // Not logged in or token expired
+                console.error("AuthProvider: Auth check failed or no session found.", error.message);
                 setUser(null);
+            } finally {
+                setLoading(false);
             }
-            setLoading(false);
         };
 
         checkLoggedIn();
