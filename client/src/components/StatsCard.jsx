@@ -1,18 +1,22 @@
-import { ArrowUp, ArrowDown, DollarSign } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const StatsCard = ({ title, amount, icon: Icon, color }) => {
     return (
-        <div className="bg-white p-6 rounded-lg shadow-md flex items-center justify-between">
-            <div>
-                <p className="text-gray-500 text-sm mb-1">{title}</p>
-                <h3 className="text-2xl font-bold text-gray-800">
+        <motion.div 
+            whileHover={{ y: -5, scale: 1.02 }}
+            className="glass-dark p-6 rounded-[2rem] border border-white/10 shadow-xl flex items-center justify-between group transition-all"
+        >
+            <div className="space-y-1">
+                <p className="text-slate-400 text-xs font-semibold uppercase tracking-wider ml-1">{title}</p>
+                <h3 className="text-3xl font-bold text-white tracking-tight">
                     {amount !== undefined ? `$${Math.abs(amount).toLocaleString()}` : '...'}
                 </h3>
             </div>
-            <div className={`p-3 rounded-full ${color}`}>
-                {Icon && <Icon size={24} className="text-white" />}
+            
+            <div className={`w-14 h-14 rounded-2xl ${color} flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform duration-300 border border-white/10`}>
+                {Icon && <Icon size={28} className="text-white" />}
             </div>
-        </div>
+        </motion.div>
     );
 };
 
