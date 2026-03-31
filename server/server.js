@@ -18,20 +18,27 @@ app.use(express.json());
 
 // CORS Configuration
 const allowedOrigins = [
-    process.env.FRONTEND_URL || 'http://localhost:5173',
-    // Add Vercel URL here if you have it
+    'http://localhost:5173',
+    'http://localhost:3000',
 ];
+
+// Add the production frontend URL if it exists
+if (process.env.FRONTEND_URL) {
+    allowedOrigins.push(process.env.FRONTEND_URL);
+}
 
 app.use(cors({
     origin: function (origin, callback) {
-        // allow requests with no origin (like mobile apps or curl requests)
+        // Allow requests with no origin (like mobile apps, curl, or server-to-server)
         if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) === -1) {
-            var msg = 'The CORS policy for this site does not ' +
-                'allow access from the specified Origin.';
-            return callback(new Error(msg), false);
+        
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            return callback(null, true);
+        } else {
+            console.error(`CORS Error: Origin ${origin} not allowed. Allowed:`, allowedOrigins);
+            // Return null for error, but false for success to deny without a 500 crash
+            return callback(null, false);
         }
-        return callback(null, true);
     },
     credentials: true,
 }));
