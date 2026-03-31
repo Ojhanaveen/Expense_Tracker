@@ -11,6 +11,9 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Trust Proxy (Required for Rate Limiting on Render)
+app.set('trust proxy', 1);
+
 // Middleware
 app.use(helmet()); // Security headers
 app.use(cookieParser()); // Cookie handling
@@ -24,7 +27,9 @@ const allowedOrigins = [
 
 // Add the production frontend URL if it exists
 if (process.env.FRONTEND_URL) {
-    allowedOrigins.push(process.env.FRONTEND_URL);
+    // Remove trailing slash if user accidentally included it
+    const cleanUrl = process.env.FRONTEND_URL.replace(/\/$/, "");
+    allowedOrigins.push(cleanUrl);
 }
 
 app.use(cors({
