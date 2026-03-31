@@ -8,8 +8,9 @@ import {
   ChevronDown, 
   PieChart, 
   Wallet, 
-  Menu, 
-  X 
+  X,
+  PlusCircle,
+  History
 } from 'lucide-react';
 
 const Navbar = () => {
@@ -39,6 +40,12 @@ const Navbar = () => {
                         <>
                             <Link to="/dashboard" className="text-slate-300 hover:text-white transition-colors flex items-center gap-2">
                                 <PieChart size={18} /> Dashboard
+                            </Link>
+                            <Link to="/transactions" className="text-slate-300 hover:text-white transition-colors flex items-center gap-2">
+                                <History size={18} /> Transactions
+                            </Link>
+                            <Link to="/transactions" className="btn-primary py-2 px-4 text-xs flex items-center gap-2">
+                                <PlusCircle size={16} /> New Expense
                             </Link>
                             <div className="relative">
                                 <button 
@@ -97,8 +104,18 @@ const Navbar = () => {
                         <div className="p-4 flex flex-col gap-4">
                             {user ? (
                                 <>
-                                    <Link to="/dashboard" className="p-3 hover:bg-white/5 rounded-xl text-white">Dashboard</Link>
-                                    <button onClick={handleLogout} className="p-3 text-left hover:bg-red-500/10 rounded-xl text-red-400">Logout</button>
+                                    <Link to="/dashboard" className="p-3 hover:bg-white/5 rounded-xl text-white flex items-center gap-3">
+                                        <PieChart size={18} /> Dashboard
+                                    </Link>
+                                    <Link to="/transactions" className="p-3 hover:bg-white/5 rounded-xl text-white flex items-center gap-3">
+                                        <History size={18} /> Transactions
+                                    </Link>
+                                    <Link to="/transactions" className="btn-primary text-center">
+                                        + New Expense
+                                    </Link>
+                                    <button onClick={handleLogout} className="p-3 text-left hover:bg-red-500/10 rounded-xl text-red-400 flex items-center gap-3">
+                                        <LogOut size={18} /> Logout
+                                    </button>
                                 </>
                             ) : (
                                 <>
